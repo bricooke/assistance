@@ -1,9 +1,3 @@
-* Create repository skeleton.
-
-* Create trunk skeleton - lib, Rakefile etc.
-
-* Move TODO inside trunk.
-
 * Import code for inflector (from merb?).
 
 * Object#blank?.
