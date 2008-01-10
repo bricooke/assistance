@@ -1,5 +1,7 @@
 === SVN
 
+* Imported #blank? from DataMapper.
+
 * Imported inflector from Merb.
 
 * Imported ConnectionPool from Sequel.
