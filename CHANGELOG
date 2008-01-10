@@ -1,5 +1,7 @@
 === SVN
 
+* Imported inflector from Merb.
+
 * Imported ConnectionPool from Sequel.
 
 * Imported time calculations from Sequel.

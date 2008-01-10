@@ -3,4 +3,5 @@ dir = File.join(File.dirname(__FILE__), "assistance")
   core_ext
   time_calculations
   connection_pool
+  inflector
 ].each {|f| require(File.join(dir, f))}

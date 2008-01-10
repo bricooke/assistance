@@ -1,5 +1,3 @@
-* Import code for inflector (from merb?).
-
 * Object#blank?.
 
 * code statistics? (from sequel).
