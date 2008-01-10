@@ -9,7 +9,7 @@ include FileUtils
 # Configuration
 ##############################################################################
 NAME = "assistance"
-VERS = "0.0.1"
+VERS = "0.0.2"
 CLEAN.include ["**/.*.sw?", "pkg/*", ".config", "doc/*", "coverage/*"]
 RDOC_OPTS = [
   "--quiet", 
@@ -31,6 +31,13 @@ Rake::RDocTask.new do |rdoc|
   rdoc.main = "README"
   rdoc.title = "Assistance: light-weight application support"
   rdoc.rdoc_files.add ["README", "COPYING", "lib/assistance.rb", "lib/**/*.rb"]
+end
+
+task :doc_rforge => [:doc]
+
+desc "Update docs and upload to rubyforge.org"
+task :doc_rforge do
+  sh %{scp -r doc/rdoc/* ciconia@rubyforge.org:/var/www/gforge-projects/assistance}
 end
 
 ##############################################################################

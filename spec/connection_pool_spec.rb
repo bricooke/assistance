@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 context "An empty ConnectionPool" do
   setup do
-    @cpool = Sequel::ConnectionPool.new
+    @cpool = ConnectionPool.new
   end
 
   specify "should have no available connections" do
@@ -21,7 +21,7 @@ end
 context "A connection pool handling connections" do
   setup do
     @max_size = 2
-    @cpool = Sequel::ConnectionPool.new(@max_size) {:got_connection}
+    @cpool = ConnectionPool.new(@max_size) {:got_connection}
   end
 
   specify "#hold should increment #created_count" do
@@ -73,7 +73,7 @@ end
 
 context "ConnectionPool#hold" do
   setup do
-    @pool = Sequel::ConnectionPool.new {DummyConnection.new}
+    @pool = ConnectionPool.new {DummyConnection.new}
   end
   
   specify "should pass the result of the connection maker proc to the supplied block" do
@@ -109,7 +109,7 @@ end
 
 context "ConnectionPool#connection_proc" do
   setup do
-    @pool = Sequel::ConnectionPool.new
+    @pool = ConnectionPool.new
   end
   
   specify "should be nil if no block is supplied to the pool" do
@@ -128,7 +128,7 @@ end
 context "A connection pool with a max size of 1" do
   setup do
     @invoked_count = 0
-    @pool = Sequel::ConnectionPool.new(1) {@invoked_count += 1; 'herro'}
+    @pool = ConnectionPool.new(1) {@invoked_count += 1; 'herro'}
   end
   
   specify "should let only one thread access the connection at any time" do
@@ -204,7 +204,7 @@ end
 context "A connection pool with a max size of 5" do
   setup do
     @invoked_count = 0
-    @pool = Sequel::ConnectionPool.new(5) {@invoked_count += 1}
+    @pool = ConnectionPool.new(5) {@invoked_count += 1}
   end
   
   specify "should let five threads simultaneously access separate connections" do
@@ -274,7 +274,7 @@ end
 context "ConnectionPool#disconnect" do
   setup do
     @count = 0
-    @pool = Sequel::ConnectionPool.new(5) {{:id => @count += 1}}
+    @pool = ConnectionPool.new(5) {{:id => @count += 1}}
   end
   
   specify "should invoke the given block for each available connection" do
@@ -338,7 +338,7 @@ end
 
 context "SingleThreadedPool" do
   setup do
-    @pool = Sequel::SingleThreadedPool.new {1234}
+    @pool = SingleThreadedPool.new {1234}
   end
   
   specify "should provide a #hold method" do
