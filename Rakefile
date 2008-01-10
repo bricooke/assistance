@@ -8,7 +8,7 @@ include FileUtils
 ##############################################################################
 # Configuration
 ##############################################################################
-NAME = "assitance"
+NAME = "assistance"
 VERS = "0.0.1"
 CLEAN.include ["**/.*.sw?", "pkg/*", ".config", "doc/*", "coverage/*"]
 RDOC_OPTS = [
