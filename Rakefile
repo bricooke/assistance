@@ -9,7 +9,7 @@ include FileUtils
 # Configuration
 ##############################################################################
 NAME = "assistance"
-VERS = "0.0.2"
+VERS = "0.1"
 CLEAN.include ["**/.*.sw?", "pkg/*", ".config", "doc/*", "coverage/*"]
 RDOC_OPTS = [
   "--quiet", 
@@ -56,7 +56,7 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files = ["README", "CHANGELOG", "COPYING"]
   s.rdoc_options += RDOC_OPTS + 
     ["--exclude", "^(examples|extras)\/", "--exclude", "lib/assistance.rb"]
-  s.summary = "Database access for Ruby"
+  s.summary = "light-weight application support"
   s.description = s.summary
   s.author = "Ezra Zygmuntowicz, Sam Smoot, Sharon Rosner"
   s.email = "ezmobius@gmail.com, ssmoot@gmail.com, ciconia@gmail.com"
