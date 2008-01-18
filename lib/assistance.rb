@@ -5,4 +5,5 @@ dir = File.join(File.dirname(__FILE__), "assistance")
   connection_pool
   inflector
   blank
+  extract_options
 ].each {|f| require(File.join(dir, f))}
