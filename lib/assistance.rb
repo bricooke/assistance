@@ -6,4 +6,5 @@ dir = File.join(File.dirname(__FILE__), "assistance")
   inflector
   blank
   extract_options
+  validation
 ].each {|f| require(File.join(dir, f))}

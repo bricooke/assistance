@@ -9,7 +9,7 @@ include FileUtils
 # Configuration
 ##############################################################################
 NAME = "assistance"
-VERS = "0.1.1"
+VERS = "0.1.2"
 CLEAN.include ["**/.*.sw?", "pkg/*", ".config", "doc/*", "coverage/*"]
 RDOC_OPTS = [
   "--quiet", 
