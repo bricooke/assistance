@@ -289,3 +289,53 @@ describe "Validations" do
     @m.should be_valid
   end
 end
+
+context "Superclass validations" do
+  setup do
+    @c1 = Class.new do
+      include Validation
+      attr_accessor :value
+      validates_length_of :value, :minimum => 5
+    end
+    
+    @c2 = Class.new(@c1) do
+      validates_format_of :value, :with => /^[a-z]+$/
+    end
+  end
+  
+  specify "should be checked when validating" do
+    o = @c2.new
+    o.value = 'ab'
+    o.valid?.should == false
+    o.errors.full_messages.should == [
+      'value is too short'
+    ]
+
+    o.value = '12'
+    o.valid?.should == false
+    o.errors.full_messages.should == [
+      'value is too short',
+      'value is invalid'
+    ]
+
+    o.value = 'abcde'
+    o.valid?.should be_true
+  end
+  
+  specify "should be skipped if skip_superclass_validations is called" do
+    @c2.skip_superclass_validations
+
+    o = @c2.new
+    o.value = 'ab'
+    o.valid?.should be_true
+
+    o.value = '12'
+    o.valid?.should == false
+    o.errors.full_messages.should == [
+      'value is invalid'
+    ]
+
+    o.value = 'abcde'
+    o.valid?.should be_true
+  end
+end

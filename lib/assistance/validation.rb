@@ -115,7 +115,7 @@ module Validation
     def validations
       @validations ||= Hash.new {|h, k| h[k] = []}
     end
-    
+
     # Returns true if validations are defined.
     def has_validations?
       !validations.empty?
@@ -123,10 +123,17 @@ module Validation
 
     # Validates the given instance.
     def validate(o)
+      if superclass.respond_to?(:validate) && !@skip_superclass_validations
+        superclass.validate(o)
+      end
       validations.each do |att, procs|
         v = o.send(att)
         procs.each {|p| p[o, att, v]}
       end
+    end
+    
+    def skip_superclass_validations
+      @skip_superclass_validations = true
     end
     
     # Adds a validation for each of the given attributes using the supplied
