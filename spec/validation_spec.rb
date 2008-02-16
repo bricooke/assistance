@@ -339,3 +339,24 @@ context "Superclass validations" do
     o.valid?.should be_true
   end
 end
+
+context ".validates with block" do
+  specify "should support calling .each" do
+    @c = Class.new do
+      attr_accessor :vvv
+      
+      include Validation
+      validates do
+        each :vvv do |o, a, v|
+          o.errors[a] << "is less than zero" if v.to_i < 0
+        end
+      end
+    end
+    
+    o = @c.new
+    o.vvv = 1
+    o.should be_valid
+    o.vvv = -1
+    o.should_not be_valid
+  end
+end

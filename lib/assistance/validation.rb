@@ -83,8 +83,8 @@ module Validation
     end
 
     # Delegates method calls to the receiver by calling receiver.validates_xxx.
-    def method_missing(m, *args)
-      @receiver.send(:"validates_#{m}", *args)
+    def method_missing(m, *args, &block)
+      @receiver.send(:"validates_#{m}", *args, &block)
     end
   end
   
