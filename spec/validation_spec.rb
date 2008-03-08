@@ -50,6 +50,16 @@ describe "Validation::Errors" do
     msgs.size.should == 3
     msgs.should include('blow blieuh', 'blow blich', 'blay bliu')
   end
+  
+  specify "should be enumerable" do
+    @errors[:blow] << 'blieuh'
+    @errors[:blow] << 'blich'
+    @errors[:blay] << 'bliu'
+    @errors.size.should == 2
+    self.should_receive(:hello).exactly(2)
+    @errors.each {|e| self.hello}    
+  end
+  
 end
 
 describe Validation do

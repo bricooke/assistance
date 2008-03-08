@@ -38,6 +38,18 @@ module Validation
 
   # Validation::Errors represents validation errors.
   class Errors
+    include Enumerable
+    
+    def size
+      @errors.size
+    end
+    
+    def each
+      @errors.each do |error|
+        yield error
+      end
+    end
+    
     # Initializes a new instance of validation errors.
     def initialize
       @errors = Hash.new {|h, k| h[k] = []}
