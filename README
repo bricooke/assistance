@@ -1,0 +1,11 @@
+Official assistance repo is in svn @ http://assistance.rubyforge.org/svn/trunk
+See http://assistance.rubyforge.org
+
+My changes (by branch name)
+  + add_if_proc_to_validations
+    allows you to write validates_presence_of :password, :if => lambda {|s| self.require_password?}
+    status: Submitted patch via email
+  
+  + make_errors_enumerable
+    Mixes Enumerable into Validations::Errors and provides .size and .each to errors. This was done for merb_helpers error_messages_for
+    status: Patch not submitted, awaiting response about previous patch
