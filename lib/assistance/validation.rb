@@ -156,6 +156,7 @@ module Validation
       }.merge!(atts.extract_options!)
       
       validates_each(*atts) do |o, a, v|
+        next if opts[:if].kind_of?(Proc) && !opts[:if].call(o)
         next if (v.nil? && opts[:allow_nil]) || (v.blank? && opts[:allow_blank])
         o.errors[a] << opts[:message] unless v == opts[:accept]
       end
@@ -168,6 +169,7 @@ module Validation
       }.merge!(atts.extract_options!)
       
       validates_each(*atts) do |o, a, v|
+        next if opts[:if].kind_of?(Proc) && !opts[:if].call(o)
         next if (v.nil? && opts[:allow_nil]) || (v.blank? && opts[:allow_blank])
         c = o.send(:"#{a}_confirmation")
         o.errors[a] << opts[:message] unless v == c
@@ -185,6 +187,7 @@ module Validation
       end
       
       validates_each(*atts) do |o, a, v|
+        next if opts[:if].kind_of?(Proc) && !opts[:if].call(o)
         next if (v.nil? && opts[:allow_nil]) || (v.blank? && opts[:allow_blank])
         o.errors[a] << opts[:message] unless v.to_s =~ opts[:with]
       end
@@ -199,6 +202,7 @@ module Validation
       }.merge!(atts.extract_options!)
       
       validates_each(*atts) do |o, a, v|
+        next if opts[:if].kind_of?(Proc) && !opts[:if].call(o)
         next if (v.nil? && opts[:allow_nil]) || (v.blank? && opts[:allow_blank])
         if m = opts[:maximum]
           o.errors[a] << (opts[:message] || opts[:too_long]) unless v && v.size <= m
@@ -227,6 +231,7 @@ module Validation
       re = opts[:only_integer] ? INTEGER_RE : NUMBER_RE
       
       validates_each(*atts) do |o, a, v|
+        next if opts[:if].kind_of?(Proc) && !opts[:if].call(o)
         next if (v.nil? && opts[:allow_nil]) || (v.blank? && opts[:allow_blank])
         o.errors[a] << opts[:message] unless v.to_s =~ re
       end
@@ -239,6 +244,7 @@ module Validation
       }.merge!(atts.extract_options!)
       
       validates_each(*atts) do |o, a, v|
+        next if opts[:if].kind_of?(Proc) && !opts[:if].call(o)
         o.errors[a] << opts[:message] unless v && !v.blank?
       end
     end

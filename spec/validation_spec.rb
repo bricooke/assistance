@@ -191,6 +191,11 @@ describe "Validations" do
     @m.should_not be_valid
   end
 
+  specify "should not validate acceptance_of with if => false" do
+    @c.validates_acceptance_of :value, :allow_nil => false, :if => lambda {|m| false}
+    @m.should be_valid
+  end
+
   specify "should validate confirmation_of" do
     @c.send(:attr_accessor, :value_confirmation)
     @c.validates_confirmation_of :value
@@ -202,11 +207,25 @@ describe "Validations" do
     @m.should be_valid
   end
 
+  specify "should not validate confirmation_of :if => false" do
+    @c.send(:attr_accessor, :value_confirmation)
+    @c.validates_confirmation_of :value, :if => lambda {|m| false}
+    
+    @m.value = 'blah'
+    @m.should be_valid
+  end
+
   specify "should validate format_of" do
     @c.validates_format_of :value, :with => /.+_.+/
     @m.value = 'abc_'
     @m.should_not be_valid
     @m.value = 'abc_def'
+    @m.should be_valid
+  end
+  
+  specify "should not validate format_of :if => false" do
+    @c.validates_format_of :value, :with => /.+_.+/, :if => lambda {|m| false}
+    @m.value = 'abc_'
     @m.should be_valid
   end
   
@@ -244,6 +263,11 @@ describe "Validations" do
     @m.should_not be_valid
   end
 
+  specify "should not validate length_of :if => false" do
+    @c.validates_length_of :value, :within => 2..5, :if => Proc.new {|m| m.value != nil}
+    @m.should be_valid
+  end
+
   specify "should validate length_of with is" do
     @c.validates_length_of :value, :is => 3
     @m.should_not be_valid
@@ -270,6 +294,12 @@ describe "Validations" do
     @m.should be_valid
   end
 
+  specify "should not validate numericality_of :if => false" do
+    @c.validates_numericality_of :value, :if => lambda {|m| m.value != 'blah'}
+    @m.value = 'blah'
+    @m.should be_valid
+  end
+
   specify "should validate numericality_of with only_integer" do
     @c.validates_numericality_of :value, :only_integer => true
     @m.value = 'blah'
@@ -287,6 +317,16 @@ describe "Validations" do
     @m.should_not be_valid
     @m.value = 1234
     @m.should be_valid
+  end
+
+  specify "should not validate presence_of :if => false" do
+    @c.validates_presence_of :value, :if => Proc.new {|s| false}
+    @m.should be_valid
+  end
+  
+  specify "should validate presence of :if => true" do
+    @c.validates_presence_of :value, :if => Proc.new {|s| true}
+    @m.should_not be_valid
   end
 end
 
